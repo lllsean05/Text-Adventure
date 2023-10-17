@@ -1,7 +1,8 @@
 package main;
 
 import javax.swing.*;
-
+//the game is a moving game with 60FPS which means it will update 60times per second. This game is actually a
+// loop so that we can have the scene and the characters moving at 60FPS speed.
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame();

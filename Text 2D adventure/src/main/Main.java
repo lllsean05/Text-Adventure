@@ -22,5 +22,6 @@ public class Main {
         // at the center of the screen.
         window.setVisible(true);//so we can see this window
 
+        gamePanel.startGameThread();
     }
 }

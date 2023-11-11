@@ -12,16 +12,23 @@ public class Player extends Entity {//we can basically do all of these in the Ga
     // complicated since it can be many lines of code so we do them here.
     GamePanel gp;
     KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
     public Player(GamePanel gp,KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);//this return the halfway point of the screen.
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);//we must subtract a half tile length from both screenX and screenY
+
+        solidArea = new Rectangle(0,0,32,32);//Rectangle(x,y,width,height)
 
         setDefaultValue();
         getPlayerImage();//get the image in the constructor
     }
     public void setDefaultValue(){
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23;//we want to set the player's position at the center of the map
+        worldY = gp.tileSize * 22;
         speed = 4;
         direction = "down";//set default direction = down
     }
@@ -54,21 +61,46 @@ public class Player extends Entity {//we can basically do all of these in the Ga
                 keyH.leftPressed == true || keyH.rightPressed == true) { //the spritecounter can only increase if we press the key to make the player move
             if(keyH.upPressed == true){
                 direction = "up";
-                y -= speed;//in Java the upper left corner is X:0,Y:0
+                //worldY -= speed;//in Java the upper left corner is X:0,Y:0
                 //X values increases to the right and Y value increases as they go down
             }
             else if(keyH.downPressed == true){
                 direction = "down";
-                y += speed;
+                //worldY += speed;
             }
             else if(keyH.leftPressed == true){
                 direction = "left";
-                x -= speed;
+                //worldX -= speed;
             }
             else if(keyH.rightPressed == true){
                 direction = "right";
-                x += speed;
+                //worldX += speed;
             }
+
+            //CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            //IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if(collisionOn == false){
+
+                switch (direction){
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+
+            }
+
             spriteCounter ++; //Every time the loop goes, the counter will increase and when it hits 12,
             //we will switch the spriteNum which in turn we change the image.
             if (spriteCounter > 10){
@@ -127,7 +159,7 @@ public class Player extends Entity {//we can basically do all of these in the Ga
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);//drawImage():Draw an image on the screen
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);//drawImage():Draw an image on the screen
         //the last argument is called image observer which is not be used in this case.
     }
 }

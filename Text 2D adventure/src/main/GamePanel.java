@@ -25,13 +25,20 @@ public class GamePanel extends JPanel implements Runnable {// in order to use Th
     //Thread is something you can start and stop and once the thread started, it keeps your program
     // running until you stop it.
 
+    //WORLD SETTING
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+
     //FPS = Frame per sec
     int FPS = 60;
     TileManager tileM = new TileManager(this);
 
     KeyHandler keyH = new KeyHandler();//set a new KeyHandler from the class and name it keyH
     Thread gameThread;
-    Player Player = new Player(this,keyH);
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public Player Player = new Player(this,keyH);
 
 //    TEST://set player's default position
 //    int playerX = 100;

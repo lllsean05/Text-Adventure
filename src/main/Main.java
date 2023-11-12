@@ -14,7 +14,7 @@ public class Main {
         window.add(gamePanel);//add the gamePanel to this windows
 
         window.pack();//we can see the actual screen
-        //window.pach(): causes this window to be sized to fit the preferred size
+        //window.pack(): causes this window to be sized to fit the preferred size
         // and layouts of its subcomponents(=GamePanel)
 
         window.setLocationRelativeTo(null);

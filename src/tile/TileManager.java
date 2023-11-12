@@ -67,7 +67,7 @@ public class TileManager {
 
                 while(col < gp.maxWorldCol){
 
-                    String numbers[] = line.split(" ");//String.split(String) splits this string around matches
+                    String[] numbers = line.split(" ");//String.split(String) splits this string around matches
                     // of the given regular expression
                     //.split(" ") split the string at a space.
 
